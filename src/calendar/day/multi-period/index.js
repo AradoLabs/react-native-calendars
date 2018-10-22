@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { TouchableOpacity, Text, View } from 'react-native';
-import PropTypes from 'prop-types';
-import {shouldUpdate} from '../../../component-updater';
+import React, { Component } from "react";
+import { TouchableOpacity, Text, View } from "react-native";
+// import PropTypes from 'prop-types';
+import { shouldUpdate } from "../../../component-updater";
 
-import styleConstructor from './style';
+import styleConstructor from "./style";
 
 class Day extends Component {
-  static propTypes = {
-    // TODO: disabled props should be removed
-    state: PropTypes.oneOf(['disabled', 'today', '']),
+  // static propTypes = {
+  //   // TODO: disabled props should be removed
+  //   state: PropTypes.oneOf(["disabled", "today", ""]),
 
-    // Specify theme properties to override specific styles for calendar parts. Default = {}
-    theme: PropTypes.object,
-    marking: PropTypes.any,
-    onPress: PropTypes.func,
-    date: PropTypes.object,
-  };
+  //   // Specify theme properties to override specific styles for calendar parts. Default = {}
+  //   theme: PropTypes.object,
+  //   marking: PropTypes.any,
+  //   onPress: PropTypes.func,
+  //   date: PropTypes.object,
+  // };
 
   constructor(props) {
     super(props);
@@ -28,7 +28,13 @@ class Day extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return shouldUpdate(this.props, nextProps, ['state', 'children', 'marking', 'onPress', 'onLongPress']);
+    return shouldUpdate(this.props, nextProps, [
+      "state",
+      "children",
+      "marking",
+      "onPress",
+      "onLongPress",
+    ]);
   }
 
   renderPeriods(marking) {
@@ -78,20 +84,21 @@ class Day extends Component {
       containerStyle.push(this.style.selected);
       textStyle.push(this.style.selectedText);
     } else if (
-      typeof marking.disabled !== 'undefined'
+      typeof marking.disabled !== "undefined"
         ? marking.disabled
-        : this.props.state === 'disabled'
+        : this.props.state === "disabled"
     ) {
       textStyle.push(this.style.disabledText);
-    } else if (this.props.state === 'today') {
+    } else if (this.props.state === "today") {
       containerStyle.push(this.style.today);
       textStyle.push(this.style.todayText);
     }
     return (
       <View
         style={{
-          alignSelf: 'stretch'
-        }}>
+          alignSelf: "stretch",
+        }}
+      >
         <TouchableOpacity style={containerStyle} onPress={this.onDayPress}>
           <Text allowFontScaling={false} style={textStyle}>
             {String(this.props.children)}
@@ -99,8 +106,9 @@ class Day extends Component {
         </TouchableOpacity>
         <View
           style={{
-            alignSelf: 'stretch',
-          }}>
+            alignSelf: "stretch",
+          }}
+        >
           {periods}
         </View>
       </View>
